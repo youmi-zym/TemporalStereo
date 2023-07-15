@@ -23,7 +23,7 @@
 <strong>TemporalStereo Architecture</strong>, the first supervised stereo network based on video.
 </p>
 
-## Code is coming soon...
+## Codebase is almost given, training on flyingthings3d is supported, other parts will be ready soon...
 
 ## ⚙️ Setup
 
@@ -48,6 +48,26 @@ $ git clone https://github.com/NVIDIA/apex
 $ cd apex
 $ git reset --hard 4ef930c1c884fdca5f472ab2ce7cb9b505d26c1a
 $ pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./ 
+```
+
+#### Detectron2
+
+```bash
+python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+```
+
+
+#### Cupy
+
+```bash
+ # for cuda 11.3, refering to https://docs.cupy.dev/en/stable/install.html
+pip install cupy-cuda113
+```
+
+#### Finally
+
+```bash
+pip install -r requirements.txt
 ```
 
 
@@ -83,8 +103,10 @@ KITTI Raw Sequences after preprocessed can be downloaded [here]().
 Note: batch size is set for each GPU
 
 ```bash
-$ cd THIS_PROJECT_ROOT/
+$ cd THIS_PROJECT_ROOT/projects/TemporalStereo
 
+# sceneflow
+python dist_train.py --config-file ./configs/sceneflow.yaml
 ```
 
 

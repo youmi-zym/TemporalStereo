@@ -1,0 +1,17 @@
+timm==0.4.12
+omegaconf
+opencv-python
+opt-einsum
+pafy
+pypng
+PyQt5
+pytorch-lightning==1.5.2
+PyYAML
+seaborn
+scikit-image
+scikit-learn
+tensorboard
+thop
+tqdm
+typing-extensions
+yacs

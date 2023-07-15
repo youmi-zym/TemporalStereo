@@ -1,0 +1,134 @@
+LOG_DIR: "/home/yzhang/exps/"
+FRAME_IDXS: [0, ]
+
+CHECKPOINT:
+  EVERY_N_TRAIN_STEPS: 0
+  EVERY_N_EPOCHS: 25
+
+TRAINER:
+  NAME: "TemporalStereo"
+  NUM_GPUS: 1
+  GRADIENT_CLIP_VAL: 0.1
+  VERSION: "kitti2015/single"
+  MAX_EPOCHS: 120
+  CHECK_VAL_EVERY_N_EPOCHS: 5
+  LOAD_FROM_CHECKPOINT: "/path/to/kitti_raw.ckpt"
+
+SCHEDULER:
+  TYPE: 'MultiStepLR'
+  MULTI_STEP_LR:
+    MILESTONES: [60, 100,]
+    GAMMA: 0.1
+
+OPTIMIZER:
+  TYPE: 'RMSProp'
+#  TYPE: 'AdamW'
+  RMSPROP:
+    LR: 1e-4
+  ADAMW:
+    LR: 1e-3
+    BETAS: (0.9, 0.999)
+    WEIGHT_DECAY: 1e-4
+
+MODEL:
+  WITH_PREVIOUS: False
+  PREVIOUS_WITH_GRADIENT: False
+  WITH_FLOW: False
+  USE_LOCAL_MAP: False
+  LOCAL_MAP_SIZE: 0
+  VIS_FEATURE: False
+  BACKBONE:
+    NAME: "TEMPORALSTEREO"
+    IN_PLANES: 3
+  AGGREGATION:
+    NAME: "TEMPORALSTEREO"
+    COARSE:
+      IN_PLANES: 256
+      C: 32
+      NUM_SAMPLE: 12
+      DELTA: 1.0
+      BLOCK_COST_SCALE: 3
+      TOPK: 2
+      SPATIAL_FUSION: True
+    FINE:
+      IN_PLANES: 128
+      C: 16
+      NUM_SAMPLE: 5
+      DELTA: 1.0
+      BLOCK_COST_SCALE: 3
+      TOPK: 2
+      SPATIAL_FUSION: True
+    PRECISE:
+      IN_PLANES: 64
+      C: 8
+      NUM_SAMPLE: 5
+      DELTA: 1.0
+      BLOCK_COST_SCALE: 3
+      TOPK: 2
+  LOSSES:
+    SMOOTH_L1_LOSS:
+      GLOBAL_WEIGHT: 1.0
+      WEIGHTS: [2.0, 1.5, 1.0, 0.7, 0.5]
+      SPARSE: True
+    WARSSERSTEIN_DISTANCE_LOSS:
+      GLOBAL_WEIGHT: 2.0
+      WEIGHTS: [1.0, 0.7, 0.5]
+      SPARSE: True
+
+DATA:
+  TRAIN:
+#    TYPE: "KITTIRAW"
+#    DATA_ROOT: "/mnt/cfs/algorithm/youmin.zhang/data/KITTIRAW/"
+#    ANNFILE: "./splits/kittiraw/view_1_sota_pseudo_train_all.json"
+#    DATA_ROOT: "/home/yzhang/data/KITTIRAW/"
+#    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kittiraw/view_1_sota_pseudo_train_all.json"
+    TYPE: "KITTI2015"
+#    DATA_ROOT: "/mnt/DiskSSD/KITTI-Multiview/KITTI-2015/"
+#    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2015/view_11_train_all.json"
+#    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2015/view_11_train_split.json"
+    DATA_ROOT: "/mnt/DiskSSD/KITTI-Multiview/KITTI-2012/"
+    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2012/view_11_train_all.json"
+    BATCH_SIZE: 2
+    NUM_WORKERS: 4
+    USE_COMMON_INTRINSICS: False
+    DO_SAME_LR_TRANSFORM: False
+    HEIGHT: 320
+    WIDTH: 1184
+    FRAME_IDXS: [0, ]
+  VAL:
+    TYPE: "KITTI2015"
+#    DATA_ROOT: "/mnt/cfs/algorithm/youmin.zhang/data/KITTI-Multiview/KITTI-2015/"
+#    ANNFILE: "./splits/kitti2015/view_11_train_all.json"
+#    DATA_ROOT: "/mnt/DiskSSD/KITTI-Multiview/KITTI-2015/"
+#    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2015/view_11_train_all.json"
+#    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2015/view_11_val.json"
+    DATA_ROOT: "/mnt/DiskSSD/KITTI-Multiview/KITTI-2012/"
+    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2012/view_11_train_all.json"
+    BATCH_SIZE: 1
+    NUM_WORKERS: 2
+    USE_COMMON_INTRINSICS: False
+    DO_SAME_LR_TRANSFORM: True
+    HEIGHT: 384
+    WIDTH: 1248
+    FRAME_IDXS: [0, ]
+  TEST:
+    TYPE: "KITTI2015"
+#    DATA_ROOT: "/mnt/cfs/algorithm/youmin.zhang/data/KITTI-Multiview/KITTI-2015/"
+#    ANNFILE: "./splits/kitti2015/view_11_train_all.json"
+#    DATA_ROOT: "/mnt/DiskSSD/KITTI-Multiview/KITTI-2015/"
+#    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2015/view_11_train_all.json"
+    DATA_ROOT: "/mnt/DiskSSD/KITTI-Multiview/KITTI-2012/"
+    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2012/view_11_train_all.json"
+    BATCH_SIZE: 1
+    NUM_WORKERS: 2
+    USE_COMMON_INTRINSICS: False
+    DO_SAME_LR_TRANSFORM: True
+    HEIGHT: 384
+    WIDTH: 1248
+    FRAME_IDXS: [0, ]
+
+VAL:
+  EVAL_DISPARITY_IDS: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+  DO_OCCLUSION_EVALUATION: False
+  VIS_INTERVAL: 3
+

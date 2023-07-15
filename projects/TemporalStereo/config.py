@@ -1,0 +1,212 @@
+import os
+import argparse
+from architecture.utils.config import CfgNode
+
+# ********************************************* CONFIG BEGIN ********************************************** #
+
+CN = CfgNode
+_C = CN()
+_C.MAX_DISP = 192
+_C.FRAME_IDXS = [0, -1]
+_C.LOG_DIR = os.path.join("/home/yzhang/exps/")
+
+
+# ************************************************  DATA  ************************************************ #
+_C.DATA = CN()
+
+_C.DATA.TRAIN = CN()
+_C.DATA.TRAIN.DATA_ROOT = os.path.join("/home/yzhang/data/SceneFlow/")
+_C.DATA.TRAIN.TYPE = "SceneFlow"
+_C.DATA.TRAIN.ANNFILE = '../splits/sceneflow/view_1_train.json'
+_C.DATA.TRAIN.HEIGHT = 512
+_C.DATA.TRAIN.WIDTH = 960
+_C.DATA.TRAIN.USE_COMMON_INTRINSICS = True
+_C.DATA.TRAIN.DO_SAME_LR_TRANSFORM =False
+_C.DATA.TRAIN.MEAN = (0.485, 0.456, 0.406)
+_C.DATA.TRAIN.STD = (0.229, 0.224, 0.225)
+_C.DATA.TRAIN.FRAME_IDXS = [0, ]
+_C.DATA.TRAIN.BATCH_SIZE = 8
+_C.DATA.TRAIN.NUM_WORKERS = 8
+
+_C.DATA.VAL = CN()
+_C.DATA.VAL.DATA_ROOT = os.path.join("/home/yzhang/data/SceneFlow/")
+_C.DATA.VAL.TYPE = "SceneFlow"
+_C.DATA.VAL.ANNFILE = '../splits/sceneflow/view_1_val.json'
+_C.DATA.VAL.HEIGHT = 544
+_C.DATA.VAL.WIDTH = 960
+_C.DATA.VAL.USE_COMMON_INTRINSICS = True
+_C.DATA.VAL.DO_SAME_LR_TRANSFORM = True
+_C.DATA.VAL.MEAN = (0.485, 0.456, 0.406)
+_C.DATA.VAL.STD = (0.229, 0.224, 0.225)
+_C.DATA.VAL.FRAME_IDXS = [0, ]
+_C.DATA.VAL.BATCH_SIZE = 4
+_C.DATA.VAL.NUM_WORKERS = 4
+
+_C.DATA.TEST = CN()
+_C.DATA.TEST.DATA_ROOT = os.path.join("/home/yzhang/data/SceneFlow/")
+_C.DATA.TEST.TYPE = "SceneFlow"
+_C.DATA.TEST.ANNFILE = '../splits/sceneflow/view_1_val.json'
+_C.DATA.TEST.HEIGHT = 544
+_C.DATA.TEST.WIDTH = 960
+_C.DATA.TEST.USE_COMMON_INTRINSICS = True
+_C.DATA.TEST.DO_SAME_LR_TRANSFORM =True
+_C.DATA.TEST.MEAN = (0.485, 0.456, 0.406)
+_C.DATA.TEST.STD = (0.229, 0.224, 0.225)
+_C.DATA.TEST.FRAME_IDXS = [0, ]
+_C.DATA.TEST.BATCH_SIZE = 1
+_C.DATA.TEST.NUM_WORKERS = 2
+
+# ************************************************ TRAINER ************************************************ #
+_C.CHECKPOINT = CN()
+_C.CHECKPOINT.EVERY_N_TRAIN_STEPS = 0
+_C.CHECKPOINT.EVERY_N_EPOCHS = 1
+
+# ************************************************ TRAINER ************************************************ #
+_C.TRAINER = CN()
+_C.TRAINER.NAME = "TemporalStereo"
+_C.TRAINER.VERSION = "default"
+_C.TRAINER.NUM_GPUS = 1
+_C.TRAINER.NUM_NODES = 1
+_C.TRAINER.MAX_EPOCHS = 10
+_C.TRAINER.MIN_EPOCHS = 1
+# _C.TRAINER.MAX_STEPS = None
+_C.TRAINER.MIN_STEPS = 1000
+_C.TRAINER.PRECISION = 32 # 16bit or 32bit
+_C.TRAINER.AMP_LEVEL = '00' # 00, 01, 02, 03
+_C.TRAINER.SYNC_BATCHNORM = True
+_C.TRAINER.GRADIENT_CLIP_VAL = 0.1
+_C.TRAINER.LOG_EVERY_N_STEPS = 50
+_C.TRAINER.FLUSH_LOGS_EVERY_N_STEPS = 100
+_C.TRAINER.CHECK_VAL_EVERY_N_EPOCHS = 1
+_C.TRAINER.RESUME_FROM_CHECKPOINT = ''
+_C.TRAINER.LOAD_FROM_CHECKPOINT = ''
+_C.TRAINER.FAST_DEV_RUN = False
+
+
+# ************************************************ OPTIMIZER ************************************************ #
+_C.OPTIMIZER = CN()
+_C.OPTIMIZER.TYPE = "RMSProp"
+_C.OPTIMIZER.RMSPROP = CN()
+_C.OPTIMIZER.RMSPROP.LR = 1e-3
+_C.OPTIMIZER.ADAM = CN()
+_C.OPTIMIZER.ADAM.LR = 1e-3
+_C.OPTIMIZER.ADAM.BETAS = (0.9, 0.999)
+_C.OPTIMIZER.ADAMW = CN()
+_C.OPTIMIZER.ADAMW.LR = 1e-3
+_C.OPTIMIZER.ADAMW.BETAS = (0.9, 0.999)
+_C.OPTIMIZER.ADAMW.WEIGHT_DECAY = 1e-4
+_C.SCHEDULER = CN()
+_C.SCHEDULER.TYPE = "MultiStepLR"
+_C.SCHEDULER.MULTI_STEP_LR = CN()
+_C.SCHEDULER.MULTI_STEP_LR.MILESTONES = [10, 20]
+_C.SCHEDULER.MULTI_STEP_LR.GAMMA = 0.1
+_C.SCHEDULER.EXPONENTIAL_LR = CN()
+_C.SCHEDULER.EXPONENTIAL_LR.GAMMA = 0.9
+
+
+# ************************************************  MODEL  ************************************************ #
+_C.MODEL = CN()
+_C.MODEL.WITH_PREVIOUS = False
+_C.MODEL.PREVIOUS_WITH_GRADIENT = False
+_C.MODEL.WITH_FLOW = False
+_C.MODEL.USE_LOCAL_MAP = False
+_C.MODEL.USE_PAST_COST = False
+_C.MODEL.LOCAL_MAP_SIZE = 0
+_C.MODEL.VIS_FEATURE = False
+
+
+# ----------------------------------------------- BACKBONE ---------------------------------------------- #
+_C.MODEL.BACKBONE = CN()
+_C.MODEL.BACKBONE.NAME = 'TEMPORALSTEREO'
+_C.MODEL.BACKBONE.IN_PLANES = 3
+_C.MODEL.BACKBONE.ALPHA = 1.0
+_C.MODEL.BACKBONE.USE_GRU = False
+_C.MODEL.BACKBONE.MEMORY_PERCENT = 1/8
+_C.MODEL.BACKBONE.NORM = 'BN'
+_C.MODEL.BACKBONE.ACTIVATION = 'SiLU'
+
+# ---------------------------------------------- AGGREGATION ---------------------------------------------- #
+_C.MODEL.AGGREGATION = CN()
+_C.MODEL.AGGREGATION.NAME = 'TEMPORALSTEREO'
+_C.MODEL.AGGREGATION.NORM = 'BN'
+_C.MODEL.AGGREGATION.ACTIVATION = 'SiLU'
+
+_C.MODEL.AGGREGATION.COARSE = CN()
+_C.MODEL.AGGREGATION.COARSE.IN_PLANES = 192
+_C.MODEL.AGGREGATION.COARSE.C = 16
+_C.MODEL.AGGREGATION.COARSE.NUM_SAMPLE = 12
+_C.MODEL.AGGREGATION.COARSE.DELTA = 1.0
+_C.MODEL.AGGREGATION.COARSE.BLOCK_COST_SCALE = 3
+_C.MODEL.AGGREGATION.COARSE.SPATIAL_FUSION = True
+_C.MODEL.AGGREGATION.COARSE.TOPK = 1
+_C.MODEL.AGGREGATION.COARSE.NORM = 'BN3d'
+_C.MODEL.AGGREGATION.COARSE.ACTIVATION = 'SiLU'
+
+_C.MODEL.AGGREGATION.FINE = CN()
+_C.MODEL.AGGREGATION.FINE.IN_PLANES = 64
+_C.MODEL.AGGREGATION.FINE.C = 8
+_C.MODEL.AGGREGATION.FINE.NUM_SAMPLE = 4
+_C.MODEL.AGGREGATION.FINE.DELTA = 1.0
+_C.MODEL.AGGREGATION.FINE.BLOCK_COST_SCALE = 3
+_C.MODEL.AGGREGATION.FINE.SPATIAL_FUSION = True
+_C.MODEL.AGGREGATION.FINE.TOPK = 1
+_C.MODEL.AGGREGATION.FINE.NORM = 'BN3d'
+_C.MODEL.AGGREGATION.FINE.ACTIVATION = 'SiLU'
+
+_C.MODEL.AGGREGATION.PRECISE = CN()
+_C.MODEL.AGGREGATION.PRECISE.IN_PLANES = 48
+_C.MODEL.AGGREGATION.PRECISE.C = 8
+_C.MODEL.AGGREGATION.PRECISE.NUM_SAMPLE = 4
+_C.MODEL.AGGREGATION.PRECISE.DELTA = 1.0
+_C.MODEL.AGGREGATION.PRECISE.BLOCK_COST_SCALE = 3
+_C.MODEL.AGGREGATION.PRECISE.TOPK = 1
+_C.MODEL.AGGREGATION.PRECISE.NORM = 'BN3d'
+_C.MODEL.AGGREGATION.PRECISE.ACTIVATION = 'SiLU'
+
+# ------------------------------------------------  LOSS   ---------------------------------------------- #
+_C.MODEL.LOSSES = CN()
+_C.MODEL.LOSSES.WARSSERSTEIN_DISTANCE_LOSS = CN()
+_C.MODEL.LOSSES.WARSSERSTEIN_DISTANCE_LOSS.MAX_DISP = 192
+_C.MODEL.LOSSES.WARSSERSTEIN_DISTANCE_LOSS.START_DISP = 0
+_C.MODEL.LOSSES.WARSSERSTEIN_DISTANCE_LOSS.GLOBAL_WEIGHT = 1.0
+_C.MODEL.LOSSES.WARSSERSTEIN_DISTANCE_LOSS.WEIGHTS = [1.2, 0.3, 0.1]
+_C.MODEL.LOSSES.WARSSERSTEIN_DISTANCE_LOSS.SPARSE = False
+
+_C.MODEL.LOSSES.SMOOTH_L1_LOSS = CN()
+_C.MODEL.LOSSES.SMOOTH_L1_LOSS.MAX_DISP = 192
+_C.MODEL.LOSSES.SMOOTH_L1_LOSS.START_DISP = 0
+_C.MODEL.LOSSES.SMOOTH_L1_LOSS.GLOBAL_WEIGHT = 1.0
+_C.MODEL.LOSSES.SMOOTH_L1_LOSS.WEIGHTS = [1.0, 0.7, 0.5]
+_C.MODEL.LOSSES.SMOOTH_L1_LOSS.SPARSE = False
+
+# ************************************************   VAL  ************************************************ #
+_C.VAL = CN()
+_C.VAL.VIS_INTERVAL = 8
+_C.VAL.VIS_BATCH_INDEX = 4
+_C.VAL.LOWERBOUND = 0
+_C.VAL.UPPERBOUND = 192
+_C.VAL.DO_OCCLUSION_EVALUATION = True
+_C.VAL.EVAL_DISPARITY_IDS = [0, 1, 2, 3]
+
+
+def get_parser():
+    parser = argparse.ArgumentParser(description="TemporalStereo Training")
+    parser.add_argument("--config-file", default="", metavar="FILE",
+                        help="path to config file")
+    parser.add_argument(
+        "opts",
+        help="Modify config options using the command-line",
+        default=None,
+        nargs=argparse.REMAINDER,
+    )
+
+    return parser
+
+def get_cfg(args):
+    cfg = _C.clone()
+    if args.config_file:
+        cfg.merge_from_file(args.config_file)
+    cfg.merge_from_list(args.opts)
+    cfg.freeze()
+    return cfg
+

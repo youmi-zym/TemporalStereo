@@ -1,0 +1,103 @@
+LOG_DIR: "/home/yzhang/exps/"
+FRAME_IDXS: [-3, -2, -1, 0, ]
+
+CHECKPOINT:
+  EVERY_N_TRAIN_STEPS: 0
+  EVERY_N_EPOCHS: 2
+
+TRAINER:
+  NAME: 'TemporalStereo'
+  NUM_GPUS: 1
+  VERSION: "tartanair/full"
+  MAX_EPOCHS: 20
+  CHECK_VAL_EVERY_N_EPOCHS: 2
+  LOAD_FROM_CHECKPOINT: "path/to/checkpoint_trained_with_single_image_pair"
+
+SCHEDULER:
+  TYPE: 'MultiStepLR'
+  MULTI_STEP_LR:
+    MILESTONES: [10, 20]
+    GAMMA: 0.1
+
+OPTIMIZER:
+  TYPE: 'RMSProp'
+  RMSPROP:
+    LR: 1e-3
+
+MODEL:
+  WITH_PREVIOUS: True
+  PREVIOUS_WITH_GRADIENT: False
+  USE_PAST_COST: True
+  LOCAL_MAP_SIZE: 3
+  BACKBONE:
+    NAME: "TEMPORALSTEREO"
+    IN_PLANES: 3
+    MEMORY_PERCENT: 0.5
+  AGGREGATION:
+    NAME: "TEMPORALSTEREO"
+    COARSE:
+      IN_PLANES: 256
+      C: 32
+      NUM_SAMPLE: 12
+      DELTA: 1.0
+      BLOCK_COST_SCALE: 3
+      TOPK: 2
+      SPATIAL_FUSION: True
+    FINE:
+      IN_PLANES: 128
+      C: 16
+      NUM_SAMPLE: 5
+      DELTA: 1.0
+      BLOCK_COST_SCALE: 3
+      TOPK: 2
+      SPATIAL_FUSION: True
+    PRECISE:
+      IN_PLANES: 64
+      C: 8
+      NUM_SAMPLE: 5
+      DELTA: 1.0
+      BLOCK_COST_SCALE: 3
+      TOPK: 2
+  LOSSES:
+    SMOOTH_L1_LOSS:
+      GLOBAL_WEIGHT: 1.0
+      WEIGHTS: [2.0, 1.0, 0.7, 0.5]
+    WARSSERSTEIN_DISTANCE_LOSS:
+      GLOBAL_WEIGHT: 2.0
+      WEIGHTS: [1.0, 0.7, 0.5]
+
+DATA:
+  TRAIN:
+    DATA_ROOT: "/mnt/DiskSSD/TartanAir"
+    ANNFILE: "./splits/tartanair/view_4_fps3_train.json"
+    TYPE: 'TartanAir'
+    HEIGHT: 480
+    WIDTH: 640
+    DO_SAME_LR_TRANSFORM: False
+    BATCH_SIZE: 4
+    NUM_WORKERS: 16
+    FRAME_IDXS: [-3, -2, -1, 0, ]
+  VAL:
+    DATA_ROOT: "/mnt/DiskSSD/TartanAir"
+    ANNFILE: "./splits/tartanair/view_4_fps3_test.json"
+    TYPE: 'TartanAir'
+    HEIGHT: 480
+    WIDTH: 640
+    DO_SAME_LR_TRANSFORM: True
+    BATCH_SIZE: 4
+    NUM_WORKERS: 16
+    FRAME_IDXS: [-3, -2, -1, 0, ]
+  TEST:
+    DATA_ROOT: "/mnt/DiskSSD/TartanAir"
+    ANNFILE: "./splits/tartanair/view_4_fps3_test.json"
+    TYPE: 'TartanAir'
+    HEIGHT: 480
+    WIDTH: 640
+    DO_SAME_LR_TRANSFORM: True
+    BATCH_SIZE: 1
+    NUM_WORKERS: 4
+    FRAME_IDXS: [-3, -2, -1, 0, ]
+
+VAL:
+  EVAL_DISPARITY_IDS: [0, 1, 2, 3, 4, 5]
+  DO_OCCLUSION_EVALUATION: True

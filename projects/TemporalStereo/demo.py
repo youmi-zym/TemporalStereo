@@ -1,6 +1,6 @@
 import sys
-sys.path.insert(0, '/home/yzhang/projects/mono/StereoBenchmark/')
-import copy
+import os.path as osp
+sys.path.insert(0, osp.join(osp.dirname(osp.abspath(__file__)), '../../'))
 import matplotlib
 matplotlib.use('TkAgg')
 
@@ -18,7 +18,6 @@ params = {
 plt.rcParams.update(params)
 plt.style.use('seaborn-whitegrid')
 
-import matplotlib.axes
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -232,6 +231,15 @@ if __name__ == '__main__':
         default=[384, 1280],
     )
 
+    parser.add_argument(
+        "--frame-index",
+        nargs="+",
+        type=int,
+        help="frame id, e.g., current frame is 0, last frame is -1, "
+             "it depends on how many frames you want to build connections",
+        default=[0, ],
+    )
+
     args = parser.parse_args()
     cfg = get_cfg(args)
     model = TemporalStereo(cfg.convert_to_dict())
@@ -255,9 +263,7 @@ if __name__ == '__main__':
     data_config.ANNFILE = annfile
     data_config.HEIGHT = resize_to_shape[0]
     data_config.WIDTH = resize_to_shape[1]
-    # data_config.FRAME_IDXS = [0,]
-    data_config.FRAME_IDXS = [-7, -6, -5, -4, -3, -2, -1, 0,]
-
+    data_config.FRAME_IDXS = args.frame_index
 
     dataset = build_stereo_dataset(data_config, phase='val')
 

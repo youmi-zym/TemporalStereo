@@ -1,4 +1,4 @@
-LOG_DIR: "/home/yzhang/exps/"
+LOG_DIR: "./exps/"
 FRAME_IDXS: [0, ]
 
 CHECKPOINT:
@@ -22,13 +22,8 @@ SCHEDULER:
 
 OPTIMIZER:
   TYPE: 'RMSProp'
-#  TYPE: 'AdamW'
   RMSPROP:
     LR: 1e-4
-  ADAMW:
-    LR: 1e-3
-    BETAS: (0.9, 0.999)
-    WEIGHT_DECAY: 1e-4
 
 MODEL:
   WITH_PREVIOUS: False
@@ -77,17 +72,11 @@ MODEL:
 
 DATA:
   TRAIN:
-#    TYPE: "KITTIRAW"
-#    DATA_ROOT: "/mnt/cfs/algorithm/youmin.zhang/data/KITTIRAW/"
-#    ANNFILE: "./splits/kittiraw/view_1_sota_pseudo_train_all.json"
-#    DATA_ROOT: "/home/yzhang/data/KITTIRAW/"
-#    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kittiraw/view_1_sota_pseudo_train_all.json"
     TYPE: "KITTI2015"
-#    DATA_ROOT: "/mnt/DiskSSD/KITTI-Multiview/KITTI-2015/"
-#    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2015/view_11_train_all.json"
-#    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2015/view_11_train_split.json"
-    DATA_ROOT: "/mnt/DiskSSD/KITTI-Multiview/KITTI-2012/"
-    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2012/view_11_train_all.json"
+    # DATA_ROOT: "./datasets/KITTI-Multiview/KITTI-2012/"
+    # ANNFILE: "./splits/kitti2012/view_11_train_all.json"
+    DATA_ROOT: "./datasets/KITTI-Multiview/KITTI-2015/"
+    ANNFILE: "./splits/kitti2015/view_11_train_all.json"
     BATCH_SIZE: 2
     NUM_WORKERS: 4
     USE_COMMON_INTRINSICS: False
@@ -97,13 +86,10 @@ DATA:
     FRAME_IDXS: [0, ]
   VAL:
     TYPE: "KITTI2015"
-#    DATA_ROOT: "/mnt/cfs/algorithm/youmin.zhang/data/KITTI-Multiview/KITTI-2015/"
-#    ANNFILE: "./splits/kitti2015/view_11_train_all.json"
-#    DATA_ROOT: "/mnt/DiskSSD/KITTI-Multiview/KITTI-2015/"
-#    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2015/view_11_train_all.json"
-#    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2015/view_11_val.json"
-    DATA_ROOT: "/mnt/DiskSSD/KITTI-Multiview/KITTI-2012/"
-    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2012/view_11_train_all.json"
+    # DATA_ROOT: "./datasets/KITTI-Multiview/KITTI-2012/"
+    # ANNFILE: "./splits/kitti2012/view_11_train_all.json"
+    DATA_ROOT: "./datasets/KITTI-Multiview/KITTI-2015/"
+    ANNFILE: "./splits/kitti2015/view_11_train_all.json"
     BATCH_SIZE: 1
     NUM_WORKERS: 2
     USE_COMMON_INTRINSICS: False
@@ -113,12 +99,10 @@ DATA:
     FRAME_IDXS: [0, ]
   TEST:
     TYPE: "KITTI2015"
-#    DATA_ROOT: "/mnt/cfs/algorithm/youmin.zhang/data/KITTI-Multiview/KITTI-2015/"
-#    ANNFILE: "./splits/kitti2015/view_11_train_all.json"
-#    DATA_ROOT: "/mnt/DiskSSD/KITTI-Multiview/KITTI-2015/"
-#    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2015/view_11_train_all.json"
-    DATA_ROOT: "/mnt/DiskSSD/KITTI-Multiview/KITTI-2012/"
-    ANNFILE: "/home/yzhang/projects/mono/StereoBenchmark/projects/TemporalStereo/splits/kitti2012/view_11_train_all.json"
+    # DATA_ROOT: "./datasets/KITTI-Multiview/KITTI-2012/"
+    # ANNFILE: "./splits/kitti2012/view_11_train_all.json"
+    DATA_ROOT: "./datasets/KITTI-Multiview/KITTI-2015/"
+    ANNFILE: "./splits/kitti2015/view_11_train_all.json"
     BATCH_SIZE: 1
     NUM_WORKERS: 2
     USE_COMMON_INTRINSICS: False

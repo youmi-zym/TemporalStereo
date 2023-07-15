@@ -1,4 +1,4 @@
-LOG_DIR: "/home/yzhang/exps/"
+LOG_DIR: "./exps/"
 FRAME_IDXS: [0, ]
 
 CHECKPOINT:
@@ -69,8 +69,8 @@ MODEL:
 
 DATA:
   TRAIN:
-    DATA_ROOT: "/mnt/DiskSSD/TartanAir"
-    ANNFILE: "./splits/tartanair/view_1_fps1_train.json"
+    DATA_ROOT: "./datasets/TartanAir"
+    ANNFILE: "./splits/tartanair/view_1_train.json"
     TYPE: 'TartanAir'
     HEIGHT: 480
     WIDTH: 640
@@ -79,8 +79,8 @@ DATA:
     NUM_WORKERS: 16
     FRAME_IDXS: [0, ]
   VAL:
-    DATA_ROOT: "/mnt/DiskSSD/TartanAir"
-    ANNFILE: "./splits/tartanair/view_1_fps1_test.json"
+    DATA_ROOT: "./datasets/TartanAir"
+    ANNFILE: "./splits/tartanair/view_1_test.json"
     TYPE: 'TartanAir'
     HEIGHT: 480
     WIDTH: 640
@@ -89,8 +89,8 @@ DATA:
     NUM_WORKERS: 8
     FRAME_IDXS: [0, ]
   TEST:
-    DATA_ROOT: "/mnt/DiskSSD/TartanAir"
-    ANNFILE: "./splits/tartanair/view_1_fps1_test.json"
+    DATA_ROOT: "./datasets/TartanAir"
+    ANNFILE: "./splits/tartanair/view_1_test.json"
     TYPE: 'TartanAir'
     HEIGHT: 480
     WIDTH: 640

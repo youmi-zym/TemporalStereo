@@ -1,4 +1,4 @@
-LOG_DIR: "/home/yzhang/exps/"
+LOG_DIR: "./exps/"
 FRAME_IDXS: [-3, -2, -1, 0, ]
 
 CHECKPOINT:
@@ -11,7 +11,7 @@ TRAINER:
   VERSION: "tartanair/full"
   MAX_EPOCHS: 20
   CHECK_VAL_EVERY_N_EPOCHS: 2
-  LOAD_FROM_CHECKPOINT: "path/to/checkpoint_trained_with_single_image_pair"
+  LOAD_FROM_CHECKPOINT: "./checkpoints/tartanair.ckpt"
 
 SCHEDULER:
   TYPE: 'MultiStepLR'
@@ -68,8 +68,8 @@ MODEL:
 
 DATA:
   TRAIN:
-    DATA_ROOT: "/mnt/DiskSSD/TartanAir"
-    ANNFILE: "./splits/tartanair/view_4_fps3_train.json"
+    DATA_ROOT: "./datasets/TartanAir"
+    ANNFILE: "./splits/tartanair/view_4_train.json"
     TYPE: 'TartanAir'
     HEIGHT: 480
     WIDTH: 640
@@ -78,8 +78,8 @@ DATA:
     NUM_WORKERS: 16
     FRAME_IDXS: [-3, -2, -1, 0, ]
   VAL:
-    DATA_ROOT: "/mnt/DiskSSD/TartanAir"
-    ANNFILE: "./splits/tartanair/view_4_fps3_test.json"
+    DATA_ROOT: "./datasets/TartanAir"
+    ANNFILE: "./splits/tartanair/view_4_test.json"
     TYPE: 'TartanAir'
     HEIGHT: 480
     WIDTH: 640
@@ -88,8 +88,8 @@ DATA:
     NUM_WORKERS: 16
     FRAME_IDXS: [-3, -2, -1, 0, ]
   TEST:
-    DATA_ROOT: "/mnt/DiskSSD/TartanAir"
-    ANNFILE: "./splits/tartanair/view_4_fps3_test.json"
+    DATA_ROOT: "./datasets/TartanAir"
+    ANNFILE: "./splits/tartanair/view_4_test.json"
     TYPE: 'TartanAir'
     HEIGHT: 480
     WIDTH: 640

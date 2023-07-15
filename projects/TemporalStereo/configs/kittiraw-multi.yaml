@@ -1,4 +1,4 @@
-LOG_DIR: "/home/yzhang/exps/"
+LOG_DIR: "./exps/"
 FRAME_IDXS: [-7, -6, -5, -4, -3, -2, -1, 0, ]
 
 CHECKPOINT:
@@ -9,10 +9,10 @@ TRAINER:
   NAME: "TemporalStereo"
   NUM_GPUS: 1
   GRADIENT_CLIP_VAL: 0.1
-  VERSION: "kittiraw/multi_pseudo_sota_freezebn"
+  VERSION: "kittiraw/multi"
   MAX_EPOCHS: 10
   CHECK_VAL_EVERY_N_EPOCHS: 1
-  LOAD_FROM_CHECKPOINT: "/path/to/tartanair_best.ckpt"
+  LOAD_FROM_CHECKPOINT: "./checkpoints/tartanair_multi.ckpt"
 
 SCHEDULER:
   TYPE: 'MultiStepLR'
@@ -23,7 +23,7 @@ SCHEDULER:
 OPTIMIZER:
   TYPE: 'RMSProp'
   RMSPROP:
-    LR: 1e-4
+    LR: 1e-3
 
 MODEL:
   WITH_PREVIOUS: True
@@ -72,8 +72,8 @@ MODEL:
 DATA:
   TRAIN:
     TYPE: "KITTIRAW"
-    DATA_ROOT: "/mnt/cfs/algorithm/youmin.zhang/data/KITTIRAW/"
-    ANNFILE: "./splits/kittiraw/view_8_sota_pseudo_train_all.json"
+    DATA_ROOT: "./datasets/KITTI-Multiview/KITTIRAW/"
+    ANNFILE: "./splits/kittiraw/view_8_train_all.json"
     BATCH_SIZE: 4
     NUM_WORKERS: 16
     USE_COMMON_INTRINSICS: False
@@ -83,7 +83,7 @@ DATA:
     FRAME_IDXS: [-7, -6, -5, -4, -3, -2, -1, 0, ]
   VAL:
     TYPE: "KITTI2015"
-    DATA_ROOT: "/mnt/cfs/algorithm/youmin.zhang/data/KITTI-Multiview/KITTI-2015/"
+    DATA_ROOT: "./datasets/KITTI-Multiview/KITTI-2015/"
     ANNFILE: "./splits/kitti2015/view_11_train_all.json"
     BATCH_SIZE: 1
     NUM_WORKERS: 8
@@ -94,7 +94,7 @@ DATA:
     FRAME_IDXS: [-7, -6, -5, -4, -3, -2, -1, 0, ]
   TEST:
     TYPE: "KITTI2015"
-    DATA_ROOT: "/mnt/cfs/algorithm/youmin.zhang/data/KITTI-Multiview/KITTI-2015/"
+    DATA_ROOT: "./datasets/KITTI-Multiview/KITTI-2015/"
     ANNFILE: "./splits/kitti2015/view_11_train_all.json"
     BATCH_SIZE: 1
     NUM_WORKERS: 2

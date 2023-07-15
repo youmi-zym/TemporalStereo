@@ -1,8 +1,23 @@
-python demo.py  --config-file ./configs/sceneflow_full.yaml \
-                --checkpoint-path /home/yzhang/exps/TemporalStereo/sceneflow/baseline/epoch_best.ckpt \
-                --resize-to-shape 544 960 \
-                --data-type SceneFlow \
-                --data-root /mnt/DiskSSD/SceneFlow/ \
-                --annfile ./splits/flyingthings3d/view_1_test.json \
-                --device cuda:0 \
-                --log-dir /home/yzhang/exps/TemporalStereo/sceneflow/baseline/output/
+CONFIG=./configs/sceneflow.yaml
+CKPT=./exps/TemporalStereo/sceneflow/epoch_best.ckpt
+LOGDIR=./exps/TemporalStereo/sceneflow/output/
+DATA_ROOT=./datasets/SceneFlow/Flyingthings3D
+DATA_TYPE=SceneFlow
+ANNFILE=./splits/flyingthings3d/test.json
+H=544
+W=960
+DEVICE=cuda:0
+
+echo Starting running demo...
+
+python demo.py  --config-file $CONFIG \
+                --checkpoint-path $CKPT \
+                --resize-to-shape $H $W \
+                --data-type $DATA_TYPE \
+                --data-root  $DATA_ROOT\
+                --annfile $ANNFILE \
+                --device $DEVICE \
+                --log-dir $LOGDIR
+
+echo Results are saved to $LOGDIR.
+echo done!

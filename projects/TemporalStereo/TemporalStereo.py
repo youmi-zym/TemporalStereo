@@ -1,10 +1,7 @@
 import time
 
-import ipdb
 import pandas as pd
 import math
-from typing import Union, List, Dict, Tuple, Optional
-import random
 EXPMAX = 50
 
 
@@ -48,16 +45,6 @@ class TemporalStereo(pl.LightningModule):
         self.aggregation = build_aggregation(cfg)
         self.smooth_l1_loss = DispSmoothL1Loss(cfg.MODEL.LOSSES.SMOOTH_L1_LOSS)
         self.warsserstein_distance_loss = WarssersteinDistanceLoss(cfg.MODEL.LOSSES.WARSSERSTEIN_DISTANCE_LOSS)
-
-    def _freeze_bn(self):
-        for m in self.modules():
-            if isinstance(m, (nn.BatchNorm2d, nn.BatchNorm3d, nn.InstanceNorm2d, nn.InstanceNorm3d)):
-                m.eval()
-
-    def _assert_bn_freezed(self):
-        for m in self.modules():
-            if isinstance(m, (nn.BatchNorm2d, nn.BatchNorm3d, nn.InstanceNorm2d, nn.InstanceNorm3d)):
-                assert not m.training, m.training
 
     def train_dataloader(self):
         dataset = build_stereo_dataset(self.cfg.DATA.TRAIN, 'train')
@@ -138,7 +125,6 @@ class TemporalStereo(pl.LightningModule):
         return optimizers, schedulers
 
     def on_train_epoch_start(self) -> None:
-        # self._freeze_bn()
         pass
 
     def training_step(self, batch, batch_idx):

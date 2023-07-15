@@ -1,5 +1,6 @@
 import sys
-sys.path.insert(0, '/home/yzhang/projects/stereo/TemporalStereo/')
+import os.path as osp
+sys.path.insert(0, osp.join(osp.dirname(osp.abspath(__file__)), '../../'))
 import matplotlib
 matplotlib.use('TkAgg')
 import cv2
@@ -35,7 +36,6 @@ import pickle
 from PIL import Image
 from torchvision import transforms
 import torchvision.transforms.functional as transF
-from architecture.utils.config import CfgNode
 from architecture.utils.visualization import colormap, disp_err_to_color, disp_err_to_colorbar, disp_to_color
 from architecture.data.utils.load_tartanair import read_tartanair_extrinsic
 
@@ -109,16 +109,8 @@ def read_image(image_fn, resize_to_shape=None):
 
     return image, image_proc
 
-def read_intrinsics(intrinsic_fn=None, device_type='zed2'):
-    if device_type == 'zed2':
-        # zed2 intrinsics
-        full_h, full_w = 1080, 1920
-        K = np.array([[1116.0751953125 / full_w, 0, 949.7744140625 / full_w, 0],
-                      [0, 1116.0751953125 / full_h, 533.137939453125 / full_h, 0],
-                      [0, 0, 1, 0],
-                      [0, 0, 0, 1]])
-        baseline = 0.11974537372589111
-    elif device_type == 'kitti':
+def read_intrinsics(device_type='kitti'):
+    if device_type == 'kitti':
         full_h, full_w = 375, 1242
         K=np.array([[721.5377/full_w,      0,                  609.5593/full_w,    0],
                     [0,                    721.5377/full_h,    172.854/full_h,     0],
@@ -248,8 +240,6 @@ def inference_stereo(
     imgLists = os.listdir(os.path.join(data_root, 'left'))
     imgLists = [img for img in imgLists if is_image_file(img)]
     imgLists.sort()
-    # extrinsic_path = os.path.join(data_root, 'orbslam3_pose.txt')
-    # extrinsics = read_extrinsic(extrinsic_path, inverse=False, use_gt=False)
     extrinsic_path = os.path.join(data_root, 'pose_left.txt')
     extrinsics = read_extrinsic(extrinsic_path, inverse=False, use_gt=True)
     norm_K, baseline = read_intrinsics(device_type='tartanair')
@@ -280,11 +270,6 @@ def inference_stereo(
         else:
             last_left_T = torch.from_numpy(extrinsics['Frame{:02d}:02'.format(img_id-1)]['T_cam02'])
             last_left_inv_T = torch.from_numpy(extrinsics['Frame{:02d}:02'.format(img_id-1)]['inv_T_cam02'])
-
-        # left_T = torch.eye(4)
-        # left_inv_T = torch.eye(4)
-        # last_left_T = torch.eye(4)
-        # last_left_inv_T = torch.eye(4)
 
         batch = {
             ('color', 0, 'l'): left_image,
@@ -389,7 +374,7 @@ if __name__ == '__main__':
         type=int,
         help="image shape after padding for inference, e.g., [544, 960],"
              "after inference, result will crop to original image size",
-        default=[384, 1280],
+        default=[480, 640],
     )
 
     from projects.TemporalStereo.TemporalStereo import TemporalStereo

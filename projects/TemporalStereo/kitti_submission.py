@@ -1,5 +1,6 @@
 import sys
-sys.path.insert(0, '/home/yzhang/projects/stereo/TemporalStereo')
+import os.path as osp
+sys.path.insert(0, osp.join(osp.dirname(osp.abspath(__file__)), '../../'))
 import skimage
 import skimage.io
 import skimage.transform
@@ -18,7 +19,6 @@ params = {
 plt.rcParams.update(params)
 plt.style.use('seaborn-whitegrid')
 
-import matplotlib.axes
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

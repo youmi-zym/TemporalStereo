@@ -1,4 +1,4 @@
-LOG_DIR: "/home/yzhang/exps/"
+LOG_DIR: "./exps/"
 FRAME_IDXS: [0, ]
 
 CHECKPOINT:
@@ -68,7 +68,7 @@ MODEL:
 
 DATA:
   TRAIN:
-    DATA_ROOT: "/home/yzhang/data/SceneFlow/FlyingThings3D/"
+    DATA_ROOT: "./datasets/SceneFlow/FlyingThings3D/"
     ANNFILE: "./splits/flyingthings3d/train.json"
     TYPE: 'SceneFlow'
     HEIGHT: 512
@@ -78,7 +78,7 @@ DATA:
     NUM_WORKERS: 4
     FRAME_IDXS: [0, ]
   VAL:
-    DATA_ROOT: "/home/yzhang/data/SceneFlow/FlyingThings3D/"
+    DATA_ROOT: "./datasets/SceneFlow/FlyingThings3D/"
     ANNFILE: "./splits/flyingthings3d/test.json"
     TYPE: 'SceneFlow'
     HEIGHT: 544
@@ -88,7 +88,7 @@ DATA:
     NUM_WORKERS: 4
     FRAME_IDXS: [0, ]
   TEST:
-    DATA_ROOT: "/home/yzhang/data/SceneFlow/FlyingThings3D/"
+    DATA_ROOT: "./datasets/SceneFlow/FlyingThings3D/"
     ANNFILE: "./splits/flyingthings3d/test.json"
     TYPE: 'SceneFlow'
     HEIGHT: 544

@@ -1,4 +1,4 @@
-LOG_DIR: "/home/faleotti/projects/exps/"
+LOG_DIR: "./exps/"
 FRAME_IDXS: [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, ]
 
 CHECKPOINT:
@@ -9,10 +9,10 @@ TRAINER:
   NAME: "TemporalStereo"
   NUM_GPUS: 1
   GRADIENT_CLIP_VAL: 0.1
-  VERSION: "kitti2015v2/multi11_raw9_16sall"
+  VERSION: "kitti2015/multi"
   MAX_EPOCHS: 16
   CHECK_VAL_EVERY_N_EPOCHS: 4
-  LOAD_FROM_CHECKPOINT: "/home/faleotti/projects/exps/TemporalStereo/kitti2015v2/raw9.ckpt"
+  LOAD_FROM_CHECKPOINT: "./checkpoints/kittiraw.ckpt"
 
 SCHEDULER:
   TYPE: 'MultiStepLR'
@@ -72,7 +72,7 @@ MODEL:
 DATA:
   TRAIN:
     TYPE: "KITTI2015"
-    DATA_ROOT: "/home/faleotti/projects/data/KITTI-Multiview/KITTI-2015/"
+    DATA_ROOT: "./datasets/KITTI-Multiview/KITTI-2015/"
     ANNFILE: "./splits/kitti2015/view_11_train_all.json"
     BATCH_SIZE: 4
     NUM_WORKERS: 8
@@ -83,7 +83,7 @@ DATA:
     FRAME_IDXS: [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, ]
   VAL:
     TYPE: "KITTI2015"
-    DATA_ROOT: "/home/faleotti/projects/data/KITTI-Multiview/KITTI-2015/"
+    DATA_ROOT: "./datasets/KITTI-Multiview/KITTI-2015/"
     ANNFILE: "./splits/kitti2015/view_11_val.json"
     BATCH_SIZE: 1
     NUM_WORKERS: 2
@@ -94,7 +94,7 @@ DATA:
     FRAME_IDXS: [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, ]
   TEST:
     TYPE: "KITTI2015"
-    DATA_ROOT: "/home/faleotti/projects/data/KITTI-Multiview/KITTI-2015/"
+    DATA_ROOT: "./datasets/KITTI-Multiview/KITTI-2015/"
     ANNFILE: "./splits/kitti2015/view_11_train_all.json"
     BATCH_SIZE: 1
     NUM_WORKERS: 2

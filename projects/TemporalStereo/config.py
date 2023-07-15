@@ -8,16 +8,16 @@ CN = CfgNode
 _C = CN()
 _C.MAX_DISP = 192
 _C.FRAME_IDXS = [0, -1]
-_C.LOG_DIR = os.path.join("/home/yzhang/exps/")
+_C.LOG_DIR = os.path.join("./exps/")
 
 
 # ************************************************  DATA  ************************************************ #
 _C.DATA = CN()
 
 _C.DATA.TRAIN = CN()
-_C.DATA.TRAIN.DATA_ROOT = os.path.join("/home/yzhang/data/SceneFlow/")
+_C.DATA.TEST.DATA_ROOT = os.path.join("./datasets//SceneFlow/Flyingthings3D")
 _C.DATA.TRAIN.TYPE = "SceneFlow"
-_C.DATA.TRAIN.ANNFILE = '../splits/sceneflow/view_1_train.json'
+_C.DATA.TRAIN.ANNFILE = './splits/flyingthings3d/train.json'
 _C.DATA.TRAIN.HEIGHT = 512
 _C.DATA.TRAIN.WIDTH = 960
 _C.DATA.TRAIN.USE_COMMON_INTRINSICS = True
@@ -29,9 +29,9 @@ _C.DATA.TRAIN.BATCH_SIZE = 8
 _C.DATA.TRAIN.NUM_WORKERS = 8
 
 _C.DATA.VAL = CN()
-_C.DATA.VAL.DATA_ROOT = os.path.join("/home/yzhang/data/SceneFlow/")
+_C.DATA.TEST.DATA_ROOT = os.path.join("./datasets//SceneFlow/Flyingthings3D")
 _C.DATA.VAL.TYPE = "SceneFlow"
-_C.DATA.VAL.ANNFILE = '../splits/sceneflow/view_1_val.json'
+_C.DATA.TRAIN.ANNFILE = './splits/flyingthings3d/test.json'
 _C.DATA.VAL.HEIGHT = 544
 _C.DATA.VAL.WIDTH = 960
 _C.DATA.VAL.USE_COMMON_INTRINSICS = True
@@ -43,9 +43,9 @@ _C.DATA.VAL.BATCH_SIZE = 4
 _C.DATA.VAL.NUM_WORKERS = 4
 
 _C.DATA.TEST = CN()
-_C.DATA.TEST.DATA_ROOT = os.path.join("/home/yzhang/data/SceneFlow/")
+_C.DATA.TEST.DATA_ROOT = os.path.join("./datasets/SceneFlow/Flyingthings3D")
 _C.DATA.TEST.TYPE = "SceneFlow"
-_C.DATA.TEST.ANNFILE = '../splits/sceneflow/view_1_val.json'
+_C.DATA.TRAIN.ANNFILE = './splits/flyingthings3d/test.json'
 _C.DATA.TEST.HEIGHT = 544
 _C.DATA.TEST.WIDTH = 960
 _C.DATA.TEST.USE_COMMON_INTRINSICS = True

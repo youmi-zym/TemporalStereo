@@ -23,7 +23,10 @@
 <strong>TemporalStereo Architecture</strong>, the first supervised stereo network based on video.
 </p>
 
-## Codebase is almost given, training on flyingthings3d is supported, other parts will be ready soon...
+## Codebase is almost given
+
+Currently, our codebase supports the training on flyingthings3d, while other parts will be ready soon...
+Besides, pretrained checkpoints on various datasets are already given, please refer to the following section.
 
 ## ⚙️ Setup
 
@@ -32,7 +35,7 @@ Assuming a fresh [Anaconda](https://www.anaconda.com/download/) distribution, yo
 conda create -n temporalstereo python=3.8
 conda activate temporalstereo
 ```
-We ran our experiments with PyTorch 1.10.1, CUDA 11.3, Python 3.8 and Ubuntu 20.04.
+We ran our experiments with PyTorch 1.10.1+, CUDA 11.3, Python 3.8 and Ubuntu 20.04.
 
 <!-- We recommend using a [conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) to avoid dependency conflicts. -->
 
@@ -70,8 +73,6 @@ pip install cupy-cuda113
 pip install -r requirements.txt
 ```
 
-
-
 ## 💾 Datasets
 We used three datasets for training and evaluation.
 
@@ -93,10 +94,12 @@ FlyingThings3D
 
 #### KITTI 2012/2015
 
-KITTI 2012/2015 dataset is available at the [KITTI Stereo Website](https://www.cvlibs.net/datasets/kitti/eval_stereo.php).
+Processed KITTI 2012/2015 dataset and KITTI Raw Sequences can be downloaded [here:comming soon]().
 
-KITTI Raw Sequences after preprocessed can be downloaded [here]().
 
+#### TartanAir
+
+Processed TartanAir dataset can be downloaded [here:comming soon]().
 
 ## ⏳ Training
 
@@ -109,7 +112,6 @@ $ cd THIS_PROJECT_ROOT/projects/TemporalStereo
 python dist_train.py --config-file ./configs/sceneflow.yaml
 ```
 
-
 During the training, tensorboard logs are saved under the experiments directory. To run the tensorboard:
 
 ```bash
@@ -119,18 +121,42 @@ $ tensorboard --logdir=. --bind_all
 
 Then you can access the tensorboard via http://YOUR_SERVER_IP:6006
 
+### Checkpoints
+
+Pretrained checkpoints on various datasets are all available [here](https://drive.google.com/drive/folders/1dbOfdx6BQ6cRX_m-G4kvvji30uKJOqMH?usp=sharing).
+
 ## 📊 Testing
 
 ```bash
-$ cd THIS_PROJECT_ROOT/
+$ cd THIS_PROJECT_ROOT/projects/TemporalStereo
+# please remember to modify the parameters according to your case
+
+# run a demo
+./demo.sh
+
+# submit to kitti
+./submit.sh
+
+# inference on a video
+./video.sh
 
 ```
-
 
 ## 👩‍⚖️ Acknowledgement
 Thanks the authors for their works:
 
-[AcfNet](https://github.com/DeepMotionAIResearch/DenseMatchingBenchmark)
+[AcfNet](https://github.com/DeepMotionAIResearch/DenseMatchingBenchmark), [CoEx](https://github.com/antabangun/coex), [Detectron2](https://github.com/facebookresearch/detectron2.git)
 
-[CoEx](https://github.com/antabangun/coex)
 
+## Citation
+
+If you find our work useful in your research please consider citing our paper:
+
+```
+@inproceedings{Zhang2023TemporalStereo,
+      title     = {TemporalStereo: Efficient Spatial-Temporal Stereo Matching Network},
+      author    = {Zhang, Youmin and Poggi, Matteo and Mattoccia, Stefano},
+      booktitle = {IROS},
+      year      = {2023}
+  }
+```

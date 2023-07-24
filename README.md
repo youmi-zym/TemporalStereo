@@ -11,7 +11,7 @@
     <a href="http://vision.deis.unibo.it/~smatt/Site/Home.html"><strong>Stefano Mattoccia</strong></a>
   </p>
   <!--h2 align="center">Arxiv</h2 -->
-  <h3 align="center"><a href="https://arxiv.org/">Arxiv</a> | <a href="https://github.com/youmi-zym/TemporalStereo.git">Project Page</a> | <a href="https://www.youtube.com/watch?v=faSgN2THhEM">Youtube Video</a></h3>
+  <h3 align="center"><a href="https://arxiv.org/abs/2211.13755">Arxiv</a> | <a href="https://github.com/youmi-zym/projects/TemporalStereo/">Project Page</a> | <a href="https://www.youtube.com/watch?v=faSgN2THhEM">Youtube Video</a></h3>
   <div align="center"></div>
 </p>
 <p align="center">

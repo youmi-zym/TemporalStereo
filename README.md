@@ -76,6 +76,8 @@ pip install -r requirements.txt
 ## 💾 Datasets
 We used three datasets for training and evaluation.
 
+All Annfile files (*.json) are available [here](https://drive.google.com/drive/folders/1PNVF8_0lVteOJG8M2MvDq2fzcAqJ7_J2?usp=sharing).
+
 #### Flyingthings3D
 
 The [Flyingthings3D/SceneFlow](https://lmb.informatik.uni-freiburg.de/resources/datasets/SceneFlowDatasets.en.html) can be downloaded here.

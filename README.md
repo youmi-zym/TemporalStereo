@@ -64,7 +64,7 @@ python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
 #### Cupy
 
 ```bash
- # for cuda 11.3, refering to https://docs.cupy.dev/en/stable/install.html
+ # for cuda 11.3, refer to https://docs.cupy.dev/en/stable/install.html
 pip install cupy-cuda113
 ```
 
@@ -99,19 +99,17 @@ FlyingThings3D
 
 #### KITTI 2012/2015
 
-Processed KITTI 2012/2015 dataset and KITTI Raw Sequences can be downloaded from [Baidu Wangpan](https://pan.baidu.com/s/1epoRBXRy1c4TELMEa-aovg?pwd=iros), with password: iros.
+Processed KITTI 2012/2015 dataset and KITTI Raw Sequences can be downloaded from [Baidu Wangpan](https://pan.baidu.com/s/1epoRBXRy1c4TELMEa-aovg?pwd=iros), with password: iros, or [Google Drive](https://drive.google.com/drive/folders/1dbOfdx6BQ6cRX_m-G4kvvji30uKJOqMH?usp=sharing).
 
-Sorry for this unconvenience, we didn't find other place that can upload so large file.
+Besides, the above link we only upload the pseudo labels of the KITTI Raw Sequences, for raw image downloading, you can refer to [this](https://github.com/youmi-zym/CompletionFormer#kitti-depth-completion-kitti-dc) for help.
 
-Besides, above link we only upload the pseudo labels of the KITTI Raw Sequences, for raw image downloading, you can refer to [this](https://github.com/youmi-zym/CompletionFormer#kitti-depth-completion-kitti-dc) for help.
-
-While for KITTI 2012 & 2015, we provide stereo image sequences, estimated poses by ORBSLAM3, and calibration files.
+For KITTI 2012 & 2015, we provide stereo image sequences, estimated poses by ORBSLAM3, and calibration files.
 
 #### TartanAir
 
-Processed TartanAir dataset can be downloaded [here:comming soon]().
+The processed TartanAir dataset can be downloaded [here: coming soon]().
 
-Sorry, this file is super large, over 200G. If anyone who has idea on uploading so large file, please contact me or just open a issue. Thanks!
+Sorry, this file is super large, over 200G. If anyone has an idea about uploading a large file, please contact me or just open an issue. Thanks!
 
 ## ⏳ Training
 

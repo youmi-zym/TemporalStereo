@@ -99,7 +99,7 @@ FlyingThings3D
 
 #### KITTI 2012/2015
 
-Processed KITTI 2012/2015 dataset and KITTI Raw Sequences can be downloaded from [Baidu Wangpan](https://pan.baidu.com/s/1epoRBXRy1c4TELMEa-aovg?pwd=iros), with password: iros, or [Google Drive](https://drive.google.com/drive/folders/1dbOfdx6BQ6cRX_m-G4kvvji30uKJOqMH?usp=sharing).
+Processed KITTI 2012/2015 dataset and KITTI Raw Sequences can be downloaded from [Baidu Wangpan](https://pan.baidu.com/s/1epoRBXRy1c4TELMEa-aovg?pwd=iros), with password: iros, or [DropBox](https://www.dropbox.com/sh/gt0pju2tb6ncqxq/AADZfasHy0gSnizQKpTeS-Oia?dl=0).
 
 Besides, the above link we only upload the pseudo labels of the KITTI Raw Sequences, for raw image downloading, you can refer to [this](https://github.com/youmi-zym/CompletionFormer#kitti-depth-completion-kitti-dc) for help.
 
@@ -107,9 +107,8 @@ For KITTI 2012 & 2015, we provide stereo image sequences, estimated poses by ORB
 
 #### TartanAir
 
-The processed TartanAir dataset can be downloaded [here: coming soon]().
+The processed TartanAir dataset can be downloaded [here](https://www.dropbox.com/sh/gt0pju2tb6ncqxq/AADZfasHy0gSnizQKpTeS-Oia?dl=0).
 
-Sorry, this file is super large, over 200G. If anyone has an idea about uploading a large file, please contact me or just open an issue. Thanks!
 
 ## ⏳ Training
 
